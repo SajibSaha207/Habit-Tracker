@@ -3,11 +3,14 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { MdMenu } from 'react-icons/md';
 import { Link, NavLink } from 'react-router';
-import { AuthContext } from '../Provider/AuthProvider';
+import  '../index.css';
+import logo from "../assets/habit_tracker_logo.png"
+import usericon from "../assets/user.png"
 import { MdOutlineHistory } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { RxUpdate } from "react-icons/rx";
 import { IoWarningOutline } from "react-icons/io5";
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Navbar = () => {
 
@@ -47,9 +50,11 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex items-center gap-3">
           <span className="text-xl lg:text-2xl font-bold text-gray-800 whitespace-nowrap">
-            <Link to="/">
-              Ekbar<span className='text-[#E527B2]'>Check</span>De
-            </Link>
+
+            <img className='h-[40px] w-[50px]' src={logo} alt="" />
+            {/* <Link to="/" className='h-[20px] w-[10px]'>
+              {logo}
+            </Link> */}
           </span>
         </div>
 
