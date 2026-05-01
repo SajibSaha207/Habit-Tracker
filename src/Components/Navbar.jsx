@@ -130,8 +130,16 @@ const Navbar = () => {
           <NavLink to="/about" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Public Habits</NavLink>
 
           {!user && (
-            <Link to="/" className="text-center mt-6 w-full py-2 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors">
+            <Link to="/" className="btn btn-outline btn-primary w-full">
               Login
+            </Link>
+          )}
+
+          
+          {/* SIGNUP BUTTON */}
+           {!user && (
+            <Link to="/" className="btn btn-error w-full">
+              Signup
             </Link>
           )}
 
