@@ -1,43 +1,28 @@
 import React, { useContext, useEffect, useState } from 'react';
-
-
 import { MdMenu } from 'react-icons/md';
 import { Link, NavLink } from 'react-router';
-import  '../index.css';
+import '../index.css';
 import logo from "../assets/habit_tracker_logo.png"
 import usericon from "../assets/user.png"
-import { MdOutlineHistory } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-import { RxUpdate } from "react-icons/rx";
-import { IoWarningOutline } from "react-icons/io5";
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Navbar = () => {
 
   const { user, logOut } = useContext(AuthContext);
-
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const role = sessionStorage.getItem("role");
-  const homeRoute = role === "kazi" ? "/kaziverifyoption" : "/home";
-
   const handlelogOut = () => {
-    logOut()
-      .then(() => sessionStorage.removeItem("role"))
-      .catch((error) => 
-        console.log(error)
-    );
+    logOut().catch((error) => console.log(error));
   };
 
   const activeClass = "text-blue-600 border-b-2 border-blue-600 pb-1 font-bold";
   const normalClass = "text-gray-600 hover:text-blue-600";
 
-  //  outside click close dropdown
   useEffect(() => {
     const handleClickOutside = () => setDropdownOpen(false);
     document.addEventListener("click", handleClickOutside);
-
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
@@ -50,34 +35,36 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex items-center gap-3">
           <span className="text-xl lg:text-2xl font-bold text-gray-800 whitespace-nowrap">
-
             <img className='h-[40px] w-[50px]' src={logo} alt="" />
-            {/* <Link to="/" className='h-[20px] w-[10px]'>
-              {logo}
-            </Link> */}
           </span>
         </div>
 
-        {/* Menu */}
+        {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-4 ml-auto whitespace-nowrap">
-          <NavLink to={homeRoute} className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
-          <NavLink to="/howitwork" className={({ isActive }) => isActive ? activeClass : normalClass}>How It Works</NavLink>
-          <NavLink to="/features" className={({ isActive }) => isActive ? activeClass : normalClass}>Features</NavLink>
-          <NavLink to="/about" className={({ isActive }) => isActive ? activeClass : normalClass}>About</NavLink>
-          <NavLink to="/contact" className={({ isActive }) => isActive ? activeClass : normalClass}>Contact</NavLink>
+          <NavLink to="/home" className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
+          <NavLink to="/howitwork" className={({ isActive }) => isActive ? activeClass : normalClass}>Add Habit</NavLink>
+          <NavLink to="/features" className={({ isActive }) => isActive ? activeClass : normalClass}>My Habits</NavLink>
+          <NavLink to="/about" className={({ isActive }) => isActive ? activeClass : normalClass}>Public Habits</NavLink>
 
+          {!user && (
+            <Link to="/" className="btn btn-primary">
+              Login
+            </Link>
+          )}
+
+          {/* SIGNUP BUTTON */}
            {!user && (
-          <Link to="/" className="btn btn-primary h-[25px] w-[60px] ">
-            Login
-          </Link>
-        )}
+            <Link to="/" className="btn btn-error">
+              Signup
+            </Link>
+          )}
         </div>
 
         {/* Right Side */}
         <div className="flex items-center gap-3 ml-3">
 
-          {/* User Image (UNCHANGED) */}
-          <div className="relative  ">
+          {/* User Image */}
+          <div className="relative">
             <img
               onClick={(e) => {
                 e.stopPropagation();
@@ -89,32 +76,19 @@ const Navbar = () => {
               title={user?.displayName || user?.email}
             />
 
-            {/*  Dropdown (ONLY kazi) */}
-            {role === "kazi" && dropdownOpen && (
+            {/* Dropdown */}
+            {dropdownOpen && user && (
               <div
                 className="absolute right-0 mt-7 w-60 bg-gray-100 shadow-lg rounded-lg p-3 z-50"
                 onClick={(e) => e.stopPropagation()}
               >
-               <div className=''>
-                 <img className='w-7 h-7 object-cover rounded-full items-center justify-center mx-auto ' src={user?.photoURL || usericon}  alt="user"/>
-                 <p className='text-center justify-center mx-auto'>{user?.displayName || user?.email}</p>
-                 <p>---------------------------------</p>
-               </div>
-
-                    <Link to="/kaziprofile" className="flex items-center gap-1 text-sm text-black  hover:bg-amber-300 p-2 rounded-lg transition-transform duration-300 hover:scale-105 hover:-translate-y-2 mt-3 mb-2 ml-3  ">
-                  <CgProfile></CgProfile> My Profile
-                </Link>
-
-                <Link to="/marriagehistory" className="flex items-center gap-1 text-sm text-black hover:bg-amber-300 p-2 rounded-lg transition-transform duration-300 hover:scale-105 hover:-translate-y-2 mb-2 ml-3">
-                  <MdOutlineHistory></MdOutlineHistory> Marriage History
-                </Link>
-
-                <Link to="/divorceupdate" className="flex items-center gap-1 text-sm text-black hover:bg-amber-300 p-2 rounded-lg transition-transform duration-300 hover:scale-105 hover:-translate-y-2 mb-2 ml-3">
-                  <RxUpdate ></RxUpdate> Divorce Update
-                </Link>
-
-                <Link to="/fraudcase" className="flex items-center gap-1 text-sm text-black hover:bg-amber-300 p-2 rounded-lg  transition-transform duration-300 hover:scale-105 hover:-translate-y-2 ml-3">
-                  <IoWarningOutline></IoWarningOutline> Fraud Cases
+                <div className='text-center mb-2'>
+                  <img className='w-10 h-10 object-cover rounded-full mx-auto' src={user?.photoURL || usericon} alt="user" />
+                  <p className='text-sm mt-1'>{user?.displayName || user?.email}</p>
+                  <hr className='my-2' />
+                </div>
+                <Link to="/profile" className="flex items-center gap-1 text-sm text-black hover:bg-amber-300 p-2 rounded-lg transition-all duration-300 hover:scale-105 mb-2 ml-3">
+                  <CgProfile /> My Profile
                 </Link>
               </div>
             )}
@@ -125,65 +99,50 @@ const Navbar = () => {
             <Link
               to="/"
               onClick={handlelogOut}
-              className="hidden md:flex items-center justify-center btn btn-outline btn-secondary btn-sm h-8 px-4 font-bold whitespace-nowrap"
+              className="hidden md:flex items-center justify-center px-4 py-1.5 border-2 border-purple-500 text-purple-500 rounded-lg text-sm font-bold hover:bg-purple-500 hover:text-white transition-colors whitespace-nowrap"
             >
               Logout
             </Link>
           )}
 
-          {/* Menu icon (mobile) */}
-          <button
-            className="md:hidden text-2xl"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
+          {/* Mobile Menu Icon */}
+          <button className="md:hidden text-2xl" onClick={() => setMenuOpen(!menuOpen)}>
             <MdMenu />
           </button>
         </div>
-
       </div>
 
       {/* Overlay */}
       {menuOpen && (
-        <div
-          className="fixed inset-0 bg-black/30 z-40"
-          onClick={() => setMenuOpen(false)}
-        ></div>
+        <div className="fixed inset-0 bg-black/30 z-40" onClick={() => setMenuOpen(false)}></div>
       )}
 
       {/* Sidebar */}
-      <div className={`fixed top-0 right-0 h-full w-2/3 sm:w-1/2 bg-white shadow-lg z-50 transform transition-transform duration-300
-        ${menuOpen ? "translate-x-0" : "translate-x-full"}`}>
-
+      <div className={`fixed top-0 right-0 h-full w-2/3 sm:w-1/2 bg-white shadow-lg z-50 transform transition-transform duration-300 ${menuOpen ? "translate-x-0" : "translate-x-full"}`}>
         <div className="flex justify-end p-4">
           <button onClick={() => setMenuOpen(false)} className="text-2xl">✕</button>
         </div>
 
         <div className="flex flex-col items-start gap-5 px-6 mt-4 text-lg">
+          <NavLink to="/home" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
+          <NavLink to="/howitwork" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Add Habit</NavLink>
+          <NavLink to="/features" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>My Habits</NavLink>
+          <NavLink to="/about" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Public Habits</NavLink>
 
-          <NavLink to={homeRoute} onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
-          <NavLink to="/howitwork" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>How It Works</NavLink>
-          <NavLink to="/features" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Features</NavLink>
-          <NavLink to="/about" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>About</NavLink>
-          <NavLink to="/contact" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Contact</NavLink>
-
-            {!user && (
-          <Link to="/" className="text-2xl text-center mt-6 w-full btn btn-outline btn-primary ">
-            Login
-          </Link>
-        )}
+          {!user && (
+            <Link to="/" className="text-center mt-6 w-full py-2 border-2 border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors">
+              Login
+            </Link>
+          )}
 
           {user && (
             <button
-              onClick={() => {
-                handlelogOut();
-                setMenuOpen(false);
-              }}
-              className="text-2xl text-center mt-6 w-full btn btn-outline btn-secondary"
+              onClick={() => { handlelogOut(); setMenuOpen(false); }}
+              className="btn btn-dash btn-secondary"
             >
               Logout
             </button>
           )}
-
         </div>
       </div>
 
