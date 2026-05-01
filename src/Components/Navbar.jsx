@@ -27,13 +27,13 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div>
+    <div className=''>
 
       {/* Navbar */}
       <div className="fixed top-0 left-0 w-full flex items-center justify-between px-6 lg:px-10 py-4 bg-white shadow flex-nowrap z-50">
 
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <div className=" flex items-center gap-3">
           <span className="text-xl lg:text-2xl font-bold text-gray-800 whitespace-nowrap">
             <img className='h-[40px] w-[50px]' src={logo} alt="" />
           </span>
@@ -61,7 +61,7 @@ const Navbar = () => {
         </div>
 
         {/* Right Side */}
-        <div className="flex items-center gap-3 ml-3">
+        <div className=" flex items-center gap-3 ml-3">
 
           {/* User Image */}
           <div className="relative">

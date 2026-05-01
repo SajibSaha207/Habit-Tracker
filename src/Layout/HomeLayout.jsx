@@ -5,15 +5,16 @@ import HeroSlider from '../Components/HeroSlider';
 
 const HomeLayout = () => {
     return (
-        <header>
+        <div className='max-w-7xl mx-auto'>
+        <header className=''>
             <Navbar></Navbar>
 
-            <section className='py-10'>
+            <section className='py-25'>
                 <HeroSlider></HeroSlider>
             </section>
            
         </header>
-        
+        </div>
     );
 };
 
