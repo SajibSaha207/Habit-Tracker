@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../Components/Navbar';
 import { Outlet } from 'react-router';
 import HeroSlider from '../Components/HeroSlider';
+import FeaturedHabits from '../Components/FeaturedHabits';
 
 const HomeLayout = () => {
     return (
@@ -11,6 +12,12 @@ const HomeLayout = () => {
 
             <section className='py-25'>
                 <HeroSlider></HeroSlider>
+                <div className='font-bold text-2xl'>
+                <FeaturedHabits></FeaturedHabits>
+                </div>
+            </section>
+            <section>
+                
             </section>
            
         </header>
