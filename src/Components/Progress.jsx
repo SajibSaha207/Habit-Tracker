@@ -1,15 +1,34 @@
 import React from 'react';
 import { GrStar } from "react-icons/gr";
+import { motion } from "framer-motion";
 
 const Progress = () => {
     return (
         <div className='mt-10 '>
-            <h2 className='font-bold text-2xl text-center'><span className='text-pink-500'>Progress</span>  & <span className='text-green-500'>Feed Back</span> </h2>
+
+            {/* 🔥 Title Animation */}
+            <motion.h2 
+                initial={{ opacity: 0, y: -30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: "easeOut"}}
+                viewport={{ once: true }}
+                className='font-bold text-2xl text-center'
+            >
+                <span className='text-pink-500'>Progress</span>  & <span className='text-green-500'>Feed Back</span>
+            </motion.h2>
+
         <div className="grid md:grid-cols-2 gap-6 p-6 mt-5">
             
 
       {/* LEFT CARD - PROGRESS */}
-      <div className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-2xl p-6 flex items-center justify-between shadow-lg transition-transform duration-300 hover:scale-105 hover:-translate-y-2 cursor-pointer">
+      <motion.div 
+        initial={{ opacity: 0, x: -80 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        viewport={{ once: true }}
+        whileHover={{ scale: 1.05, y: -8 }}
+        className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-2xl p-6 flex items-center justify-between shadow-lg transition-transform duration-300 cursor-pointer"
+      >
         
         <div>
           <h2 className="text-xl font-semibold mb-2">
@@ -40,7 +59,7 @@ const Progress = () => {
               strokeWidth="6"
               fill="transparent"
               strokeDasharray="251"
-              strokeDashoffset="63" // 75%
+              strokeDashoffset="63"
               strokeLinecap="round"
             />
           </svg>
@@ -48,10 +67,17 @@ const Progress = () => {
             75%
           </span>
         </div>
-      </div>
+      </motion.div>
 
       {/* RIGHT CARD - TESTIMONIAL */}
-      <div className="bg-white rounded-2xl p-6 shadow-lg transition-transform duration-300 hover:scale-105 hover:-translate-y-2 cursor-pointer">
+      <motion.div 
+        initial={{ opacity: 0, x: 80 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        viewport={{ once: true }}
+        whileHover={{ scale: 1.05, y: -8 }}
+        className="bg-white rounded-2xl p-6 shadow-lg transition-transform duration-300 cursor-pointer"
+      >
         
         <h2 className="text-lg font-semibold mb-3">
           What Our Users Say
@@ -71,16 +97,15 @@ const Progress = () => {
           <div>
             <p className="font-semibold text-sm">Jessica Parker</p>
             <div className="text-yellow-400 text-sm flex">
-           
-              <GrStar></GrStar> 
-               <GrStar></GrStar>
-                <GrStar></GrStar>
-                 <GrStar></GrStar>
-                  <GrStar></GrStar>
+              <GrStar />
+              <GrStar />
+              <GrStar />
+              <GrStar />
+              <GrStar />
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
     </div>
     </div>
