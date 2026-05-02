@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import { MdMenu } from 'react-icons/md';
 import { Link, NavLink } from 'react-router';
 import '../index.css';
