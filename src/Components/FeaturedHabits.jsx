@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import 'animate.css';
 
 const FeaturedHabits = () => {
     const [habits, setHabits] = useState([]);
@@ -16,7 +17,7 @@ const FeaturedHabits = () => {
 
     return (
         <div className="my-10 px-4">
-            <h2 className="text-2xl font-bold text-center mb-6">Featured Habits</h2>
+            <h2 className="text-2xl font-bold text-center mb-6 animate__animated animate__rubberBand">Featured Habits</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {habits.map(habit => (
                     <div key={habit._id} className="card bg-base-100 shadow-sm">

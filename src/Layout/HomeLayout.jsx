@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar';
 import { Outlet } from 'react-router';
 import HeroSlider from '../Components/HeroSlider';
 import FeaturedHabits from '../Components/FeaturedHabits';
+import WhyBuildHabit from '../Components/WhyBuildHabit';
 
 const HomeLayout = () => {
     return (
@@ -14,6 +15,9 @@ const HomeLayout = () => {
                 <HeroSlider></HeroSlider>
                 <div className='font-bold text-2xl'>
                 <FeaturedHabits></FeaturedHabits>
+                </div>
+                <div>
+                    <WhyBuildHabit></WhyBuildHabit>
                 </div>
             </section>
             <section>
