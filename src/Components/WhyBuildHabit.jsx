@@ -12,7 +12,7 @@ const WhyBuildHabit = () => {
             <div className='font-bold text-2xl text-center '>
                 <h2 className=''>Why <span className='text-green-400'>Build</span> Habit</h2>
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-5 ml-10 '>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-5 ml-10 gap-5 '>
                 {/* card 1 */}
                 <div className="card bg-[#4588cc] text-neutral-content w-70 hover:shadow-md  transition-transform duration-300 hover:scale-105 hover:-translate-y-2 cursor-pointer">
   <div className="card-body items-center text-center">

@@ -4,6 +4,7 @@ import { Outlet } from 'react-router';
 import HeroSlider from '../Components/HeroSlider';
 import FeaturedHabits from '../Components/FeaturedHabits';
 import WhyBuildHabit from '../Components/WhyBuildHabit';
+import Progress from '../Components/Progress';
 
 const HomeLayout = () => {
     return (
@@ -19,6 +20,7 @@ const HomeLayout = () => {
                 <div>
                     <WhyBuildHabit></WhyBuildHabit>
                 </div>
+                <div><Progress></Progress></div>
             </section>
             <section>
                 

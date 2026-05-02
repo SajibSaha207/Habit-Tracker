@@ -18,13 +18,13 @@ const FeaturedHabits = () => {
     return (
         <div className="my-10 px-4">
             <h2 className="text-2xl font-bold text-center mb-6 animate__animated animate__rubberBand">Featured Habits</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
                 {habits.map(habit => (
-                    <div key={habit._id} className="card bg-base-100 shadow-sm">
+                    <div key={habit._id} className="card bg-base-300 shadow-sm hover:shadow-md  transition-transform duration-300 hover:scale-105 hover:-translate-y-2 cursor-pointer">
                         <figure className="px-4 pt-4">
                             <img src={habit.imageUrl} alt={habit.title} className="rounded-xl w-full h-48 object-cover" />
                         </figure>
-                        <div className="card-body">
+                        <div className="card-body ">
                             <h2 className="card-title">{habit.title}</h2>
                             <p>Category: {habit.category}</p>
                             <p>Creator: {habit.creatorName}</p>
