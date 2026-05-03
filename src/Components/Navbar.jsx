@@ -54,7 +54,7 @@ const Navbar = () => {
 
           {/* SIGNUP BUTTON */}
            {!user && (
-            <Link to="/" className="btn btn-error">
+            <Link to="/auth/signup" className="btn btn-error">
               Signup
             </Link>
           )}
