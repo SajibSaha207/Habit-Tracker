@@ -6,6 +6,7 @@ import logo from "../assets/habit_tracker_logo.png"
 import usericon from "../assets/user.png"
 import { CgProfile } from "react-icons/cg";
 import { AuthContext } from '../Provider/AuthProvider';
+import img1 from '../assets/img 1.png';
 
 const Navbar = () => {
 
@@ -47,7 +48,7 @@ const Navbar = () => {
           <NavLink to="/about" className={({ isActive }) => isActive ? activeClass : normalClass}>Public Habits</NavLink>
 
           {!user && (
-            <Link to="/" className="btn btn-primary">
+            <Link to="/auth/login" className="btn btn-primary">
               Login
             </Link>
           )}
@@ -124,13 +125,13 @@ const Navbar = () => {
         </div>
 
         <div className="flex flex-col items-start gap-5 px-6 mt-4 text-lg">
-          <NavLink to="/home" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
+          <NavLink to="/" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
           <NavLink to="/howitwork" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Add Habit</NavLink>
           <NavLink to="/features" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>My Habits</NavLink>
           <NavLink to="/about" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Public Habits</NavLink>
 
           {!user && (
-            <Link to="/" className="btn btn-outline btn-primary w-full">
+            <Link to="/auth/login" className="btn btn-outline btn-primary w-full">
               Login
             </Link>
           )}
@@ -138,7 +139,7 @@ const Navbar = () => {
           
           {/* SIGNUP BUTTON */}
            {!user && (
-            <Link to="/" className="btn btn-error w-full">
+            <Link to="/auth/signup" className="btn btn-error w-full">
               Signup
             </Link>
           )}
