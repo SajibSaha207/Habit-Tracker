@@ -11,11 +11,11 @@ const HabitDetails = () => {
         .then(res => res.json())
         .then(data => setHabitDetails(data))
     },[id])
-    if (!habitdetails) return <p><Loading></Loading></p>
+    if (!habitdetails) return <p>Details Not Found</p>
     return (
         <div>
                   <div className="max-w-3xl mx-auto mt-20 p-6">
-            <img src={habitdetails.image} alt={habitdetails.title} className="w-full h-64 object-cover rounded-xl mb-6" />
+            <img src={habitdetails.imageUrl} alt={habitdetails.title} className="w-full h-64 object-cover rounded-xl mb-6" />
             <h2 className="text-3xl font-bold mb-2">{habitdetails.title}</h2>
             <p className="text-gray-500 mb-1">Category: {habitdetails.category}</p>
             <p className="text-gray-500 mb-4">Creator: {habitdetails.creatorName}</p>

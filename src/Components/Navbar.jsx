@@ -41,7 +41,7 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-4 ml-auto whitespace-nowrap">
-          <NavLink to="/home" className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
+          <NavLink to="/" className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
           <NavLink to="/howitwork" className={({ isActive }) => isActive ? activeClass : normalClass}>Add Habit</NavLink>
           <NavLink to="/features" className={({ isActive }) => isActive ? activeClass : normalClass}>My Habits</NavLink>
           <NavLink to="/about" className={({ isActive }) => isActive ? activeClass : normalClass}>Public Habits</NavLink>

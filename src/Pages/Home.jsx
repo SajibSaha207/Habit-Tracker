@@ -1,14 +1,21 @@
-
-import Navbar from '../Components/Navbar';
+import React from 'react';
+import HeroSlider from '../Components/HeroSlider';
+import FeaturedHabits from '../Components/FeaturedHabits';
+import WhyBuildHabit from '../Components/WhyBuildHabit';
+import Progress from '../Components/Progress';
+import StarJourney from '../Components/StarJourney';
 
 const Home = () => {
     return (
-        <div>
-            <div>
-                <Navbar></Navbar>
-                <h1 className='text-2xl text-red-500 text-center'>Test 2</h1>
+        <section className='py-25'>
+            <HeroSlider />
+            <div className='font-bold text-2xl'>
+                <FeaturedHabits />
             </div>
-        </div>
+            <div><WhyBuildHabit /></div>
+            <div><Progress /></div>
+            <div><StarJourney /></div>
+        </section>
     );
 };
 
