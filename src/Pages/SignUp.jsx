@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router';
 import { auth } from '../Firebase/Firebase.config';
 import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Footer from '../Components/Footer';
+import Navbar from '../Components/Navbar';
 
 
 const googleProvider = new GoogleAuthProvider();
@@ -98,6 +100,8 @@ const handleTooglePasswordShow = (event)=>{
 }
 
     return (
+        <div className=''>
+            <Navbar></Navbar>
         <div className='flex justify-center min-h-screen items-center mt-10 bg-base-300'>
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
         <h2 className='font-semibold text-2xl text-center py-5'>Create Your Account</h2>
@@ -135,6 +139,10 @@ const handleTooglePasswordShow = (event)=>{
         }
       </form>
       </div>
+    </div>
+    </div>
+    <div className='-mt-20'>
+        <Footer></Footer>
     </div>
     </div>
     );
