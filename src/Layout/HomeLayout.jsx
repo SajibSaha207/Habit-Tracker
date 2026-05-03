@@ -6,9 +6,12 @@ import FeaturedHabits from '../Components/FeaturedHabits';
 import WhyBuildHabit from '../Components/WhyBuildHabit';
 import Progress from '../Components/Progress';
 import StarJourney from '../Components/StarJourney';
+import Footer from '../Components/Footer';
+
 
 const HomeLayout = () => {
     return (
+        <div>
         <div className='max-w-7xl mx-auto'>
         <header className=''>
             <Navbar></Navbar>
@@ -25,6 +28,7 @@ const HomeLayout = () => {
                 <div>
                     <StarJourney></StarJourney>
                 </div>
+                
             </section>
             <section>
                 
@@ -32,6 +36,9 @@ const HomeLayout = () => {
            
         </header>
         </div>
+        <Footer></Footer>
+        </div>
+        
     );
 };
 
