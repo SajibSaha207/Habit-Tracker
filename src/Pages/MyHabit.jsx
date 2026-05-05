@@ -12,7 +12,7 @@ const MyHabit = () => {
     useEffect(()=>{
         if(!user?.email)return;
 
-        fetch(`http://localhost:3000/habits_collection/${user.email}`)
+        fetch(`http://localhost:3000/habit_collection/${user.email}`)
         .then(res =>res.json())
         .then (data=>{
             setMyHabit(data)
@@ -27,7 +27,7 @@ const MyHabit = () => {
         <div className="px-4 md:px-6 pb-10">
 
           <h2 className="text-xl md:text-2xl font-bold mb-4">
-            My Registered Marriages ({myhabit.length})
+            {/* My total Habits ({myhabit.length}) */}
           </h2>
 
           {/* TABLE RESPONSIVE FIX */}
@@ -38,7 +38,7 @@ const MyHabit = () => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Title</th>
+                  <th className='pl-13'>Title</th>
                   <th>Category</th>
                   <th>Current Streak</th>
                   <th>Created Date</th>
@@ -54,17 +54,13 @@ const MyHabit = () => {
                     <tr key={m._id}>
                       <th>{index + 1}</th>
 
-                      <td>
-                        <img
-                          src={m.imageUrl}
-                          alt="myhabit"
-                          className="w-14 h-14 md:w-16 md:h-16 object-cover rounded"
-                        />
+                      <td className=''>
+                       {m.title}
                       </td>
 
-                      <td>{m.category?.["Full Name"]}</td>
+                      <td>{m.category}</td>
 
-                      <td>{m.bride_information?.["Full Name"]}</td>
+                      <td className='pl-15'>0</td>
 
                       <td>
                         {/* <span className={`px-2 py-1 rounded-full text-xs md:text-sm ${
@@ -77,13 +73,13 @@ const MyHabit = () => {
                         {m.createdAt}
                       </td>
 
-                      <td><MdOutlineModeEditOutline></MdOutlineModeEditOutline></td>
+                      <td className='pl-9 cursor-pointer'><MdOutlineModeEditOutline size={20}></MdOutlineModeEditOutline></td>
 
-                      <td><RiDeleteBin6Line></RiDeleteBin6Line></td>
+                      <td className='pl-8 cursor-pointer'><RiDeleteBin6Line size={20}></RiDeleteBin6Line></td>
 
                       {/* DOWNLOAD BUTTON */}
 
-                      <td><MdDone></MdDone></td>
+                      <td className='pl-15 cursor-pointer'><MdDone size={20}></MdDone></td>
 
                     </tr>
                   ))
