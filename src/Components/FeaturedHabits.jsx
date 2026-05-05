@@ -35,15 +35,17 @@ const FeaturedHabits = () => {
                     /* 🔥 Card Animation */
                     <motion.div
                         key={habit._id}
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.2 }}
-                        whileHover={{ scale: 1.05, y: -8 }}
+                         initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ type: "spring", stiffness: 120, damping: 12, delay: index * 0.1  }}
+  whileHover={{ scale: 1.03 }}
                         className="card bg-base-300 shadow-sm hover:shadow-md transition-transform duration-300 cursor-pointer"
                     >
                         <figure className="px-4 pt-4">
                             <img 
                                 src={habit.imageUrl} 
+                                loading="lazy"
                                 alt={habit.title} 
                                 className="rounded-xl w-full h-48 object-cover" 
                             />
