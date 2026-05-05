@@ -43,7 +43,7 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-4 ml-auto whitespace-nowrap">
           <NavLink to="/" className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
-          <NavLink to="/howitwork" className={({ isActive }) => isActive ? activeClass : normalClass}>Add Habit</NavLink>
+          <NavLink to="/addhabit" className={({ isActive }) => isActive ? activeClass : normalClass}>Add Habit</NavLink>
           <NavLink to="/features" className={({ isActive }) => isActive ? activeClass : normalClass}>My Habits</NavLink>
           <NavLink to="/about" className={({ isActive }) => isActive ? activeClass : normalClass}>Public Habits</NavLink>
 
@@ -126,7 +126,7 @@ const Navbar = () => {
 
         <div className="flex flex-col items-start gap-5 px-6 mt-4 text-lg">
           <NavLink to="/" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
-          <NavLink to="/howitwork" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Add Habit</NavLink>
+          <NavLink to="/addhabit" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Add Habit</NavLink>
           <NavLink to="/features" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>My Habits</NavLink>
           <NavLink to="/about" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Public Habits</NavLink>
 

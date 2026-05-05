@@ -7,6 +7,8 @@ import AuthLayout from './Layout/AuthLayout'
 import HabitDetails from './Pages/HabitDetails'
 import SignUp from './Pages/SignUp'
 import Login from './Pages/Login'
+import AddHabit from './Pages/AddHabit'
+import PrivateRoute from './Routes/PrivateRoute'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
       {
         path: '/habitDetails/:id',
         element: <HabitDetails />
+      },
+      {
+        path:'/addhabit',
+        element:(
+          <PrivateRoute>
+            <AddHabit></AddHabit>
+          </PrivateRoute>
+        )
       },
     ],
   },
