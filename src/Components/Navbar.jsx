@@ -72,7 +72,7 @@ const Navbar = () => {
                 setDropdownOpen(!dropdownOpen);
               }}
               className='w-7 h-7 object-cover rounded-full cursor-pointer'
-              src={user?.photoURL || usericon}
+              src={user?.imageUrl || usericon}
               alt="user"
               title={user?.displayName || user?.email}
             />
@@ -98,7 +98,7 @@ const Navbar = () => {
           {/* Logout */}
           {user && (
             <Link
-              to="/"
+              to="/auth/login"
               onClick={handlelogOut}
               className="hidden md:flex items-center justify-center px-4 py-1.5 border-2 border-purple-500 text-purple-500 rounded-lg text-sm font-bold hover:bg-purple-500 hover:text-white transition-colors whitespace-nowrap"
             >
@@ -145,12 +145,12 @@ const Navbar = () => {
           )}
 
           {user && (
-            <button
+            <Link to='/auth/login'
               onClick={() => { handlelogOut(); setMenuOpen(false); }}
-              className="btn btn-dash btn-secondary"
+              className="btn btn-dash btn-secondary w-full"
             >
               Logout
-            </button>
+            </Link>
           )}
         </div>
       </div>

@@ -1,20 +1,85 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import { useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
+
 
 const AddHabit = () => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [image, setImage] = useState(null);
+    const [uploading, setUploading] = useState(false);
+
+    const handleImageUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        setUploading(true);
+        const formData = new FormData();
+        formData.append('image', file);
+
+        const res = await fetch(``, {
+            method: 'POST',
+            body: formData
+        });
+        const data = await res.json();
+        setImage(data.data.url); 
+        setUploading(false);
+    };
+
+    const handleAddHabit = (e) => {
+        e.preventDefault(); 
+
+        const title = e.target.title.value;
+        const description = e.target.description.value;
+        const category = e.target.category.value;
+        const reminderTime = e.target.reminderTime.value;
+
+        const newHabit = {
+            title,
+            description,
+            category,
+            reminderTime,
+            image: image || '',
+            creatorName: user?.displayName,
+            creatorEmail: user?.email,
+            createAt: new Date().toISOString()
+        };
+
+        fetch('http://localhost:3000/habits_collection', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newHabit)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.insertedId) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Habit Added!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                e.target.reset();
+                setImage(null);
+                navigate('/');
+            }
+        });
+        
+    };
+    
+
     return (
-        <div>
-            {/* <h2>Add New Habit</h2> */}
-             <div className='max-w-2xl mx-auto py-10 px-4 mt-25 bg-[#EAF7F0] border border-green-200 rounded-xl shadow-sm'>
-            <h2 className='text-3xl font-bold mb-1'><span>Add </span><span className='text-purple-600'>New Habit</span></h2>
+        <div className='max-w-2xl mx-auto py-10 px-4 mt-25 bg-[#EAF7F0] border border-green-200 rounded-xl shadow-sm'>
+            <h2 className='text-3xl font-bold mb-1'>
+                <span>Add </span>
+                <span className='text-purple-600'>New Habit</span>
+            </h2>
             <p className='text-gray-500 mb-8'>Create a new habit to improve yourself daily.</p>
 
-            <form >
-{/* handleAddHabit */}
+            
+            <form onSubmit={handleAddHabit}>
+
                 {/* Title */}
                 <div className='mb-4'>
                     <label className='block font-semibold mb-1'>Habit Title</label>
@@ -26,6 +91,7 @@ const AddHabit = () => {
                         required
                     />
                 </div>
+
                 {/* Description */}
                 <div className='mb-4'>
                     <label className='block font-semibold mb-1'>Description</label>
@@ -48,35 +114,39 @@ const AddHabit = () => {
                             required
                         >
                             <option value=''>Select category</option>
-                            <option value='Health'>Health</option>
+                            <option value='Morning'>Morning</option>
+                            <option value='Work'>Work</option>
                             <option value='Fitness'>Fitness</option>
-                            <option value='Personal'>Personal</option>
-                            <option value='Education'>Education</option>
-                            <option value='Productivity'>Productivity</option>
+                            <option value='Evening'>Evening</option>
+                            <option value='Study'>Study</option>
                         </select>
                     </div>
                     <div className='flex-1'>
                         <label className='block font-semibold mb-1'>Reminder Time</label>
                         <input
                             type='time'
+                            // value={time}
                             name='reminderTime'
                             className='w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-500'
                         />
                     </div>
                 </div>
 
-                {/* Image URL */}
+                {/* Image Upload */}
                 <div className='mb-4'>
                     <label className='block font-semibold mb-1'>Habit Image (optional)</label>
                     <input
-                        type='text'
-                        name='image'
-                        placeholder='Enter image URL'
-                        className='w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-500'
+                        type='file'
+                        accept='image/*'
+                        onChange={handleImageUpload}
+                        className='w-full border border-dashed border-purple-400 rounded-lg px-4 py-6 focus:outline-none'
                     />
+                    {uploading && <p className='text-sm text-purple-500 mt-1'>Uploading...</p>}
+                    {/* ✅ src={image} হবে, src={setImage} না */}
+                    {image && <img src={image} className='mt-2 h-20 rounded-lg' alt="preview" />}
                 </div>
 
-                {/* Your Name — read only */}
+                {/* Your Name */}
                 <div className='mb-4'>
                     <label className='block font-semibold mb-1'>Your Name</label>
                     <input
@@ -87,7 +157,7 @@ const AddHabit = () => {
                     />
                 </div>
 
-                {/* Your Email — read only */}
+                {/* Your Email */}
                 <div className='mb-6'>
                     <label className='block font-semibold mb-1'>Your Email</label>
                     <input
@@ -101,13 +171,12 @@ const AddHabit = () => {
                 {/* Submit */}
                 <button
                     type='submit'
-                    className='w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition-colors'
-                >
-                    Add Habit
+                    disabled={uploading}
+                    className='w-full btn btn-outline btn-primary'
+                > Add Habit
                 </button>
 
             </form>
-        </div>
         </div>
     );
 };
