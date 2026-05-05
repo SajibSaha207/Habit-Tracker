@@ -26,9 +26,9 @@ const router = createBrowserRouter([
       {
         path:'/addhabit',
         element:(
-          <PrivateRoute>
+          // <PrivateRoute>
             <AddHabit></AddHabit>
-          </PrivateRoute>
+          // </PrivateRoute>
         )
       },
     ],
