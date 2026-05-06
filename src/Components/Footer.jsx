@@ -28,7 +28,7 @@ const Footer = () => {
 
       {/* Links */}
       <div className="flex gap-5">
-        <a href="#" className="hover:text-white transition">Privacy Policy</a>
+        <a href="/pagenotfoune" className="hover:text-white transition">Privacy Policy</a>
         <a href="#" className="hover:text-white transition">Terms of Service</a>
         <a href="#" className="hover:text-white transition">Contact</a>
       </div>

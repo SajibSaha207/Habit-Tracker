@@ -11,6 +11,7 @@ import AddHabit from './Pages/AddHabit'
 import PrivateRoute from './Routes/PrivateRoute'
 import MyHabit from './Pages/MyHabit'
 import PublicHabits from './Pages/PublicHabits'
+import PageNotFound from './Pages/PageNotFound'
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
     path: '/auth/login',
     element: <Login />
   },
+  {
+    path:'/pagenotfoune',
+    element:<PageNotFound></PageNotFound>
+  }
 ])
 
 createRoot(document.getElementById('root')).render(
