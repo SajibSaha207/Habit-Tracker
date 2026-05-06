@@ -10,6 +10,7 @@ import Login from './Pages/Login'
 import AddHabit from './Pages/AddHabit'
 import PrivateRoute from './Routes/PrivateRoute'
 import MyHabit from './Pages/MyHabit'
+import PublicHabits from './Pages/PublicHabits'
 
 const router = createBrowserRouter([
   {
@@ -21,8 +22,14 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
+        path:'/publichabits',
+        element:<PublicHabits></PublicHabits>
+      },
+      {
         path: '/habitDetails/:id',
-        element: <HabitDetails />
+        element: (
+          <PrivateRoute><HabitDetails /></PrivateRoute>
+        )
       },
       {
         path:'/addhabit',
@@ -43,7 +50,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    // HomeLayout এর বাইরে — full width পাবে
+    
     path: '/auth/signup',
     element: <SignUp />
   },

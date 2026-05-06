@@ -3,7 +3,7 @@ import { AuthContext } from '../Provider/AuthProvider';
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdDone } from "react-icons/md";
-import Swal from 'sweetalert2'; // ✅ import যোগ করা হয়েছে
+import Swal from 'sweetalert2'; //  
 
 const MyHabit = () => {
     const { user } = useContext(AuthContext);
@@ -14,7 +14,7 @@ const MyHabit = () => {
     useEffect(() => {
         if (!user?.email) return;
 
-        fetch(`http://localhost:3000/habit_collection/${user.email}`) // ✅ habits_collection
+        fetch(`http://localhost:3000/habit_collection/${user.email}`) //  
             .then(res => res.json())
             .then(data => {
                 setMyHabit(data)
@@ -30,13 +30,13 @@ const MyHabit = () => {
     // Form submit
     const handleUpdate = (e) => {
         e.preventDefault();
-        const title = e.target.title.value; // ✅ vlaue → value
+        const title = e.target.title.value; //  
         const description = e.target.description.value;
         const category = e.target.category.value;
         const reminderTime = e.target.reminderTime.value;
         const updateHabit = { title, description, category, reminderTime };
 
-        fetch(`http://localhost:3000/habits_collection/${selectedhabit._id}`, { // ✅ selectedhabit
+        fetch(`http://localhost:3000/habits_collection/${selectedhabit._id}`, {  
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateHabit)
@@ -51,7 +51,7 @@ const MyHabit = () => {
                         timer: 1500
                     });
                     setModalOpen(false);
-                    // ✅ selectedhabit, updateHabit — সব consistent
+                     
                     setMyHabit(prev => prev.map(h =>
                         h._id === selectedhabit._id ? { ...h, ...updateHabit } : h
                     ));
@@ -60,7 +60,7 @@ const MyHabit = () => {
     }
 
     //DELETE
-    // ✅ handleDelete function যোগ করো handleUpdate এর নিচে
+     
 const handleDelete = (id) => {
     Swal.fire({
         title: 'Are you sure?',
@@ -84,7 +84,7 @@ const handleDelete = (id) => {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    // ✅ UI instantly update
+                     
                     setMyHabit(prev => prev.filter(h => h._id !== id));
                 }
             });
@@ -138,13 +138,13 @@ const handleDelete = (id) => {
                                           <td className='pl-8 cursor-pointer'>
                                             <RiDeleteBin6Line 
                                                size={20} 
-                                            onClick={() => handleDelete(m._id)}  // ✅ এটা যোগ করো
+                                            onClick={() => handleDelete(m._id)}  
                                              className='text-red-500'
                                                  />
                                           </td>
 
                                         <td className='pl-15 cursor-pointer'>
-                                            <MdDone size={20} />
+                                            <MdDone size={20} className='text-green-500' />
                                         </td>
                                     </tr>
                                 ))
@@ -154,8 +154,8 @@ const handleDelete = (id) => {
                 </div>
             </div>
 
-            {/* ✅ UPDATE MODAL */}
-            {modalopen && selectedhabit && ( // ✅ modalopen, selectedhabit
+            {/*  UPDATE MODAL */}
+            {modalopen && selectedhabit && ( 
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
                     <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-lg mx-4 relative">
 
@@ -176,7 +176,7 @@ const handleDelete = (id) => {
                                 <input
                                     type="text"
                                     name="title"
-                                    defaultValue={selectedhabit.title} // ✅ selectedhabit
+                                    defaultValue={selectedhabit.title}  
                                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-500"
                                     required
                                 />
@@ -187,7 +187,7 @@ const handleDelete = (id) => {
                                 <label className="block font-semibold mb-1">Description</label>
                                 <textarea
                                     name="description"
-                                    defaultValue={selectedhabit.description} // ✅
+                                    defaultValue={selectedhabit.description}  
                                     rows={3}
                                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-500 resize-none"
                                     required
@@ -200,7 +200,7 @@ const handleDelete = (id) => {
                                     <label className="block font-semibold mb-1">Category</label>
                                     <select
                                         name="category"
-                                        defaultValue={selectedhabit.category} // ✅
+                                        defaultValue={selectedhabit.category}  
                                         className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-500"
                                         required
                                     >
@@ -216,7 +216,7 @@ const handleDelete = (id) => {
                                     <input
                                         type="time"
                                         name="reminderTime"
-                                        defaultValue={selectedhabit.reminderTime} // ✅
+                                        defaultValue={selectedhabit.reminderTime}  
                                         className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-500"
                                     />
                                 </div>
@@ -242,7 +242,7 @@ const handleDelete = (id) => {
                                 />
                             </div>
 
-                            {/* ✅ Submit Button যোগ করা হয়েছে */}
+                            {/*   Submit Button  */}
                             <button
                                 type="submit"
                                 className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition-colors"
@@ -250,10 +250,10 @@ const handleDelete = (id) => {
                                 Update Habit
                             </button>
 
-                        </form> {/* ✅ closing tag */}
+                        </form>  
                     </div>
                 </div>
-            )} {/* ✅ modal closing tag */}
+            )}  
 
         </div>
     );

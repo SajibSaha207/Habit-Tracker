@@ -5,12 +5,23 @@ import Loading from '../Components/Loading';
 const HabitDetails = () => {
     const { id } = useParams();
     const [habitdetails, setHabitDetails] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
         fetch(`http://localhost:3000/habits_collection/${id}`)
         .then(res => res.json())
-        .then(data => setHabitDetails(data))
+        .then(data => setHabitDetails(data));
+        setLoading(false);
     },[id])
+
+ if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h2 className='text-3xl font-bold text-center'><Loading></Loading></h2>
+      </div>
+    );
+  }
+
     if (!habitdetails) return <p>Details Not Found</p>
     return (
         <div>

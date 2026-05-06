@@ -45,7 +45,7 @@ const Navbar = () => {
           <NavLink to="/" className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
           <NavLink to="/addhabit" className={({ isActive }) => isActive ? activeClass : normalClass}>Add Habit</NavLink>
           <NavLink to="/myhabit" className={({ isActive }) => isActive ? activeClass : normalClass}>My Habits</NavLink>
-          <NavLink to="/about" className={({ isActive }) => isActive ? activeClass : normalClass}>Public Habits</NavLink>
+          <NavLink to="/publichabits" className={({ isActive }) => isActive ? activeClass : normalClass}>Public Habits</NavLink>
 
           {!user && (
             <Link to="/auth/login" className="btn btn-primary">
@@ -128,7 +128,7 @@ const Navbar = () => {
           <NavLink to="/" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Home</NavLink>
           <NavLink to="/addhabit" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Add Habit</NavLink>
           <NavLink to="/myhabit" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>My Habits</NavLink>
-          <NavLink to="/about" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Public Habits</NavLink>
+          <NavLink to="/publichabits" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : normalClass}>Public Habits</NavLink>
 
           {!user && (
             <Link to="/auth/login" className="btn btn-outline btn-primary w-full">

@@ -1,30 +1,35 @@
-import { useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import 'animate.css';
 import { motion } from "framer-motion";
-import Loading from './Loading';
 
-const FeaturedHabits = () => {
-    const [habits, setHabits] = useState([]);
+import Loading from '../Components/Loading';
+
+const PublicdHabits = () => {
+    
+    const [publichabits, setPublicHabits] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch('http://localhost:3000/habits_collection')
             .then(res => res.json())
             .then(data => {
-                const recentHabits = data.slice(0, 6);
-                setHabits(recentHabits);
+                const recentHabits = data;
+                setPublicHabits(recentHabits);
                 setLoading(false);
             })
     }, [])
 
-      if (loading) {
+          
+
+  if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-         <Loading></Loading> 
+        <h2 className='text-3xl font-bold text-center'><Loading></Loading></h2>
       </div>
     );
   }
+
 
     return (
         <div className="my-10 px-4">
@@ -41,7 +46,7 @@ const FeaturedHabits = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                {habits.map((habit, index) => (
+                {publichabits.map((habit, index) => (
                     
                     /*  Card Animation */
                     <motion.div
@@ -85,4 +90,4 @@ const FeaturedHabits = () => {
     );
 };
 
-export default FeaturedHabits;
+export default PublicdHabits;
