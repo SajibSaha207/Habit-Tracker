@@ -14,7 +14,7 @@ const MyHabit = () => {
     useEffect(() => {
         if (!user?.email) return;
 
-        fetch(`http://localhost:3000/habits_collection/${user.email}`) // ✅ habits_collection
+        fetch(`http://localhost:3000/habit_collection/${user.email}`) // ✅ habits_collection
             .then(res => res.json())
             .then(data => {
                 setMyHabit(data)
@@ -59,6 +59,39 @@ const MyHabit = () => {
             });
     }
 
+    //DELETE
+    // ✅ handleDelete function যোগ করো handleUpdate এর নিচে
+const handleDelete = (id) => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`http://localhost:3000/habits_collection/${id}`, {
+                method: 'DELETE'
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Deleted!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    // ✅ UI instantly update
+                    setMyHabit(prev => prev.filter(h => h._id !== id));
+                }
+            });
+        }
+    });
+}
+
     return (
         <div className='mt-25'>
             <h2 className='font-bold text-2xl'>My <span>Habits</span></h2>
@@ -98,14 +131,17 @@ const MyHabit = () => {
                                         <td>{m.createdAt}</td>
 
                                         <td>
-                                            <button onClick={() => handleEditClick(m)}>
-                                                <MdOutlineModeEditOutline className='text-xl text-blue-500 cursor-pointer' />
+                                            <button className='pl-4' onClick={() => handleEditClick(m)}>
+                                                <MdOutlineModeEditOutline size={20} className='text-xl text-blue-500 cursor-pointer ' />
                                             </button>
                                         </td>
-
-                                        <td className='pl-8 cursor-pointer'>
-                                            <RiDeleteBin6Line size={20} />
-                                        </td>
+                                          <td className='pl-8 cursor-pointer'>
+                                            <RiDeleteBin6Line 
+                                               size={20} 
+                                            onClick={() => handleDelete(m._id)}  // ✅ এটা যোগ করো
+                                             className='text-red-500'
+                                                 />
+                                          </td>
 
                                         <td className='pl-15 cursor-pointer'>
                                             <MdDone size={20} />
