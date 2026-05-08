@@ -92,6 +92,45 @@ const handleDelete = (id) => {
     });
 }
 
+// ✅ handleDelete এর নিচে এটা যোগ করো
+const handleMarkComplete = (habit) => {
+    const today = new Date().toISOString().slice(0, 10);
+    const alreadyDone = habit?.completionHistory?.includes(today);
+
+    if (alreadyDone) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Already completed today!',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        return;
+    }
+
+    fetch(`http://localhost:3000/habits_collection/complete/${habit._id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ date: today })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.modifiedCount > 0) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Habit Completed Today! 🎉',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            // ✅ UI instantly update
+            setMyHabit(prev => prev.map(h =>
+                h._id === habit._id
+                    ? { ...h, completionHistory: [...(h.completionHistory || []), today] }
+                    : h
+            ));
+        }
+    });
+}
+
     return (
         <div className='mt-25'>
             <h2 className='font-bold text-2xl'>My <span>Habits</span></h2>
@@ -144,8 +183,15 @@ const handleDelete = (id) => {
                                           </td>
 
                                         <td className='pl-15 cursor-pointer'>
-                                            <MdDone size={20} className='text-green-500' />
-                                        </td>
+                                           {m?.completionHistory?.includes(new Date().toISOString().slice(0, 10))
+                                                  ? <MdDone size={24} className='text-green-500' />
+                                                  : <MdDone
+                                                        size={24}
+                                                    className='text-gray-300 hover:text-green-500 cursor-pointer'
+                                                    onClick={() => handleMarkComplete(m)}
+                                                    />
+                                                          }
+                                                    </td>
                                     </tr>
                                 ))
                             }
