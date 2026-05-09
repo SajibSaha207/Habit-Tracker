@@ -3,10 +3,13 @@ import { useParams } from 'react-router';
 import Loading from '../Components/Loading';
 import Swal from 'sweetalert2';
 
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+
 const HabitDetails = () => {
     const { id } = useParams();
     const [habitdetails, setHabitDetails] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [showLottie, setShowLottie] = useState(false);
 
     const fetchDetails = () => {
         fetch(`http://localhost:3000/habits_collection/detail/${id}`)
@@ -72,12 +75,8 @@ const HabitDetails = () => {
         const alreadyDone = habitdetails?.completionHistory?.includes(today);
 
         if (alreadyDone) {
-            Swal.fire({
-                icon: 'info',
-                title: 'Already completed today!',
-                showConfirmButton: false,
-                timer: 1500
-            });
+             setShowLottie(true); // ✅ already done হলেও দেখাবে
+            setTimeout(() => setShowLottie(false), 2500);
             return;
         }
 
@@ -87,20 +86,17 @@ const HabitDetails = () => {
             body: JSON.stringify({ date: today })
         })
         .then(res => res.json())
-        .then(data => {
-            if (data.modifiedCount > 0) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Habit Completed Today! 🎉',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                setHabitDetails(prev => ({
-                    ...prev,
-                    completionHistory: [...(prev.completionHistory || []), today]
-                }));
-            }
-        });
+       .then(data => {
+    if (data.modifiedCount > 0) {
+        setShowLottie(true); // ✅ Lottie দেখাও
+        setTimeout(() => setShowLottie(false), 2500); // ✅ 2.5 সেকেন্ড পরে বন্ধ
+
+        setHabitDetails(prev => ({
+            ...prev,
+            completionHistory: [...(prev.completionHistory || []), today]
+        }));
+    }
+});
     }
 
     if (loading) {
@@ -190,6 +186,22 @@ const HabitDetails = () => {
                     ))}
                 </div>
             </div>
+
+
+                        {showLottie && (
+                <div className="flex flex-col items-center justify-center py-4">
+                    <DotLottieReact
+      src="https://lottie.host/e3093175-75b9-4075-840d-14d20f40e4e9/IYkxkW3OGF.lottie"
+      loop
+      autoplay
+    />
+                    <p className="text-green-600 font-bold text-lg mt-2">
+                        {completedToday ? 'Already Completed Today! ' : 'Habit Completed Today!'}
+                    </p>
+                </div>
+            )}
+
+
 
             {/* Mark Complete Button */}
             <button

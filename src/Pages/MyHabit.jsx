@@ -92,7 +92,7 @@ const handleDelete = (id) => {
     });
 }
 
-// ✅ handleDelete এর নিচে এটা যোগ করো
+//  handlemark complete
 const handleMarkComplete = (habit) => {
     const today = new Date().toISOString().slice(0, 10);
     const alreadyDone = habit?.completionHistory?.includes(today);
@@ -117,11 +117,11 @@ const handleMarkComplete = (habit) => {
         if (data.modifiedCount > 0) {
             Swal.fire({
                 icon: 'success',
-                title: 'Habit Completed Today! 🎉',
+                title: 'Habit Completed Today! ',
                 showConfirmButton: false,
                 timer: 1500
             });
-            // ✅ UI instantly update
+            //  UI instantly update
             setMyHabit(prev => prev.map(h =>
                 h._id === habit._id
                     ? { ...h, completionHistory: [...(h.completionHistory || []), today] }
