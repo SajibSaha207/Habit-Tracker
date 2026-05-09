@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import Loading from '../Components/Loading';
-import Swal from 'sweetalert2';
+
 
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 

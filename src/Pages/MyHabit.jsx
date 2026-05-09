@@ -3,143 +3,110 @@ import { AuthContext } from '../Provider/AuthProvider';
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdDone } from "react-icons/md";
-import Swal from 'sweetalert2'; //  
+import Swal from 'sweetalert2';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const MyHabit = () => {
     const { user } = useContext(AuthContext);
     const [myhabit, setMyHabit] = useState([]);
     const [selectedhabit, setSelectHabit] = useState(null);
     const [modalopen, setModalOpen] = useState(false);
+    const [showLottie, setShowLottie] = useState(false);
 
     useEffect(() => {
         if (!user?.email) return;
-
-        fetch(`http://localhost:3000/habit_collection/${user.email}`) //  
+        fetch(`http://localhost:3000/habit_collection/${user.email}`)
             .then(res => res.json())
-            .then(data => {
-                setMyHabit(data)
-            })
+            .then(data => setMyHabit(data))
     }, [user])
 
-    // icon click
     const handleEditClick = (habit) => {
         setSelectHabit(habit);
         setModalOpen(true);
     }
 
-    // Form submit
     const handleUpdate = (e) => {
         e.preventDefault();
-        const title = e.target.title.value; //  
+        const title = e.target.title.value;
         const description = e.target.description.value;
         const category = e.target.category.value;
         const reminderTime = e.target.reminderTime.value;
         const updateHabit = { title, description, category, reminderTime };
 
-        fetch(`http://localhost:3000/habits_collection/${selectedhabit._id}`, {  
+        fetch(`http://localhost:3000/habits_collection/${selectedhabit._id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateHabit)
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data.modifiedCount > 0) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Habit Updated!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    setModalOpen(false);
-                     
-                    setMyHabit(prev => prev.map(h =>
-                        h._id === selectedhabit._id ? { ...h, ...updateHabit } : h
-                    ));
-                }
-            });
-    }
-
-    //DELETE
-     
-const handleDelete = (id) => {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            fetch(`http://localhost:3000/habits_collection/${id}`, {
-                method: 'DELETE'
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.deletedCount > 0) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Deleted!',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                     
-                    setMyHabit(prev => prev.filter(h => h._id !== id));
-                }
-            });
-        }
-    });
-}
-
-//  handlemark complete
-const handleMarkComplete = (habit) => {
-    const today = new Date().toISOString().slice(0, 10);
-    const alreadyDone = habit?.completionHistory?.includes(today);
-
-    if (alreadyDone) {
-        Swal.fire({
-            icon: 'info',
-            title: 'Already completed today!',
-            showConfirmButton: false,
-            timer: 1500
+        .then(res => res.json())
+        .then(data => {
+            if (data.modifiedCount > 0) {
+                Swal.fire({ icon: 'success', title: 'Habit Updated!', showConfirmButton: false, timer: 1500 });
+                setModalOpen(false);
+                setMyHabit(prev => prev.map(h =>
+                    h._id === selectedhabit._id ? { ...h, ...updateHabit } : h
+                ));
+            }
         });
-        return;
     }
 
-    fetch(`http://localhost:3000/habits_collection/complete/${habit._id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ date: today })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.modifiedCount > 0) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Habit Completed Today! ',
-                showConfirmButton: false,
-                timer: 1500
-            });
-            //  UI instantly update
-            setMyHabit(prev => prev.map(h =>
-                h._id === habit._id
-                    ? { ...h, completionHistory: [...(h.completionHistory || []), today] }
-                    : h
-            ));
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:3000/habits_collection/${id}`, { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        Swal.fire({ icon: 'success', title: 'Deleted!', showConfirmButton: false, timer: 1500 });
+                        setMyHabit(prev => prev.filter(h => h._id !== id));
+                    }
+                });
+            }
+        });
+    }
+
+    const handleMarkComplete = (habit) => {
+        const today = new Date().toISOString().slice(0, 10);
+        const alreadyDone = habit?.completionHistory?.includes(today);
+
+        if (alreadyDone) {
+            setShowLottie(true);
+            setTimeout(() => setShowLottie(false), 2500);
+            return;
         }
-    });
-}
+
+        fetch(`http://localhost:3000/habits_collection/complete/${habit._id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ date: today })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.modifiedCount > 0) {
+                setShowLottie(true);
+                setTimeout(() => setShowLottie(false), 2500);
+                setMyHabit(prev => prev.map(h =>
+                    h._id === habit._id
+                        ? { ...h, completionHistory: [...(h.completionHistory || []), today] }
+                        : h
+                ));
+            }
+        });
+    }
 
     return (
         <div className='mt-25'>
             <h2 className='font-bold text-2xl'>My <span>Habits</span></h2>
 
             <div className="px-4 md:px-6 pb-10">
-
-                <h2 className="text-xl md:text-2xl font-bold mb-4">
-                </h2>
-
                 <div className="overflow-x-auto">
                     <table className="table w-full min-w-[700px]">
                         <thead>
@@ -151,61 +118,62 @@ const handleMarkComplete = (habit) => {
                                 <th>Created Date</th>
                                 <th>Update</th>
                                 <th>Delete</th>
-                                <th>Mark Compelete</th>
+                                <th>Mark Complete</th>
                             </tr>
                         </thead>
-
                         <tbody>
-                            {
-                                myhabit.map((m, index) => (
-                                    <tr key={m._id}>
-                                        <th>{index + 1}</th>
-
-                                        <td>{m.title}</td>
-
-                                        <td>{m.category}</td>
-
-                                        <td className='pl-15'>0</td>
-
-                                        <td>{m.createdAt}</td>
-
-                                        <td>
-                                            <button className='pl-4' onClick={() => handleEditClick(m)}>
-                                                <MdOutlineModeEditOutline size={20} className='text-xl text-blue-500 cursor-pointer ' />
-                                            </button>
-                                        </td>
-                                          <td className='pl-8 cursor-pointer'>
-                                            <RiDeleteBin6Line 
-                                               size={20} 
-                                            onClick={() => handleDelete(m._id)}  
-                                             className='text-red-500'
-                                                 />
-                                          </td>
-
-                                        <td className='pl-15 cursor-pointer'>
-                                           {m?.completionHistory?.includes(new Date().toISOString().slice(0, 10))
-                                                  ? <MdDone size={24} className='text-green-500' />
-                                                  : <MdDone
-                                                        size={24}
-                                                    className='text-gray-300 hover:text-green-500 cursor-pointer'
-                                                    onClick={() => handleMarkComplete(m)}
-                                                    />
-                                                          }
-                                                    </td>
-                                    </tr>
-                                ))
-                            }
+                            {myhabit.map((m, index) => (
+                                <tr key={m._id}>
+                                    <th>{index + 1}</th>
+                                    <td>{m.title}</td>
+                                    <td>{m.category}</td>
+                                    <td className='pl-15'>0</td>
+                                    <td>{m.createdAt}</td>
+                                    <td>
+                                        <button className='pl-4' onClick={() => handleEditClick(m)}>
+                                            <MdOutlineModeEditOutline size={20} className='text-blue-500 cursor-pointer' />
+                                        </button>
+                                    </td>
+                                    <td className='pl-8 cursor-pointer'>
+                                        <RiDeleteBin6Line
+                                            size={20}
+                                            onClick={() => handleDelete(m._id)}
+                                            className='text-red-500'
+                                        />
+                                    </td>
+                                    <td className='pl-15 cursor-pointer'>
+                                        {m?.completionHistory?.includes(new Date().toISOString().slice(0, 10))
+                                            ? <MdDone size={24} className='text-green-500' />
+                                            : <MdDone
+                                                size={24}
+                                                className='text-gray-300 hover:text-green-500 cursor-pointer'
+                                                onClick={() => handleMarkComplete(m)}
+                                            />
+                                        }
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            {/*  UPDATE MODAL */}
-            {modalopen && selectedhabit && ( 
+            {/* ✅ Lottie — table এর পরে, modal এর আগে */}
+            {showLottie && (
+                <div className="flex flex-col items-center justify-center py-4">
+                    <DotLottieReact
+                        src="https://lottie.host/e3093175-75b9-4075-840d-14d20f40e4e9/IYkxkW3OGF.lottie"
+                        loop={false}
+                        autoplay={true}
+                        style={{ width: 150, height: 150 }}
+                    />
+                </div>
+            )}
+
+            {/* UPDATE MODAL */}
+            {modalopen && selectedhabit && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
                     <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-lg mx-4 relative">
-
-                        {/* Close Button */}
                         <button
                             onClick={() => setModalOpen(false)}
                             className="absolute top-3 right-4 text-2xl text-gray-500 hover:text-red-500"
@@ -215,38 +183,32 @@ const handleMarkComplete = (habit) => {
                         <p className="text-gray-500 mb-5 text-sm">Edit your habit details below.</p>
 
                         <form onSubmit={handleUpdate}>
-
-                            {/* Title */}
                             <div className="mb-4">
                                 <label className="block font-semibold mb-1">Habit Title</label>
                                 <input
                                     type="text"
                                     name="title"
-                                    defaultValue={selectedhabit.title}  
+                                    defaultValue={selectedhabit.title}
                                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-500"
                                     required
                                 />
                             </div>
-
-                            {/* Description */}
                             <div className="mb-4">
                                 <label className="block font-semibold mb-1">Description</label>
                                 <textarea
                                     name="description"
-                                    defaultValue={selectedhabit.description}  
+                                    defaultValue={selectedhabit.description}
                                     rows={3}
                                     className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-500 resize-none"
                                     required
                                 />
                             </div>
-
-                            {/* Category + Reminder */}
                             <div className="flex gap-4 mb-4">
                                 <div className="flex-1">
                                     <label className="block font-semibold mb-1">Category</label>
                                     <select
                                         name="category"
-                                        defaultValue={selectedhabit.category}  
+                                        defaultValue={selectedhabit.category}
                                         className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-500"
                                         required
                                     >
@@ -262,13 +224,11 @@ const handleMarkComplete = (habit) => {
                                     <input
                                         type="time"
                                         name="reminderTime"
-                                        defaultValue={selectedhabit.reminderTime}  
+                                        defaultValue={selectedhabit.reminderTime}
                                         className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-500"
                                     />
                                 </div>
                             </div>
-
-                            {/* Name & Email — read only */}
                             <div className="mb-4">
                                 <label className="block font-semibold mb-1">Your Name</label>
                                 <input
@@ -287,19 +247,16 @@ const handleMarkComplete = (habit) => {
                                     className="w-full border border-gray-200 rounded-lg px-4 py-2 bg-gray-50 text-gray-500 cursor-not-allowed"
                                 />
                             </div>
-
-                            {/*   Submit Button  */}
                             <button
                                 type="submit"
                                 className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition-colors"
                             >
                                 Update Habit
                             </button>
-
-                        </form>  
+                        </form>
                     </div>
                 </div>
-            )}  
+            )}
 
         </div>
     );
