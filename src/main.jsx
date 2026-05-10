@@ -12,6 +12,8 @@ import PrivateRoute from './Routes/PrivateRoute'
 import MyHabit from './Pages/MyHabit'
 import PublicHabits from './Pages/PublicHabits'
 import PageNotFound from './Pages/PageNotFound'
+import Contact from './Pages/Contact'
+import TermsOfService from './Pages/TermsOfService'
 
 const router = createBrowserRouter([
   {
@@ -62,6 +64,14 @@ const router = createBrowserRouter([
   {
     path:'/pagenotfoune',
     element:<PageNotFound></PageNotFound>
+  },
+  {
+    path:'/contact',
+    element:<Contact></Contact>
+  },
+  {
+    path:'/terms',
+    element:<TermsOfService></TermsOfService>
   }
 ])
 

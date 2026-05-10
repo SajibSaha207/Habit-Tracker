@@ -158,9 +158,9 @@ const MyHabit = () => {
                 </div>
             </div>
 
-            {/* ✅ Lottie — table এর পরে, modal এর আগে */}
+            {/* ✅ Lottie */}
             {showLottie && (
-                <div className="flex flex-col items-center justify-center py-4">
+                <div className="flex flex-col items-center justify-center py-4 -mt-20">
                     <DotLottieReact
                         src="https://lottie.host/e3093175-75b9-4075-840d-14d20f40e4e9/IYkxkW3OGF.lottie"
                         loop={false}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const StarJourney = () => {
     return (
@@ -13,9 +14,9 @@ const StarJourney = () => {
           Create habits that stick and transform your life.
         </p>
 
-        <button className="btn btn-primary">
+        <Link to='/auth/login' className="btn btn-primary">
           Get Started Now
-        </button>
+        </Link>
 
       </div>
     </div>
