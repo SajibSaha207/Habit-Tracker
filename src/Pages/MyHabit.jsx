@@ -5,6 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdDone } from "react-icons/md";
 import Swal from 'sweetalert2';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import { SlClose } from "react-icons/sl";
 
 const MyHabit = () => {
     const { user } = useContext(AuthContext);
@@ -107,7 +108,7 @@ const MyHabit = () => {
             <h2 className='font-bold text-2xl'>My <span>Habits</span></h2>
 
             <div className="px-4 md:px-6 pb-10">
-                <div className="overflow-x-auto">
+                <div className="">
                     <table className="table w-full min-w-[700px]">
                         <thead>
                             <tr>
@@ -158,7 +159,7 @@ const MyHabit = () => {
                 </div>
             </div>
 
-            {/* ✅ Lottie */}
+            {/*  Lottie */}
             {showLottie && (
                 <div className="flex flex-col items-center justify-center py-4 -mt-20">
                     <DotLottieReact
@@ -177,7 +178,7 @@ const MyHabit = () => {
                         <button
                             onClick={() => setModalOpen(false)}
                             className="absolute top-3 right-4 text-2xl text-gray-500 hover:text-red-500"
-                        >✕</button>
+                        ><SlClose></SlClose></button>
 
                         <h2 className="text-2xl font-bold mb-1">Update <span className="text-purple-600">Habit</span></h2>
                         <p className="text-gray-500 mb-5 text-sm">Edit your habit details below.</p>

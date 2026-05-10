@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
 
   const authData = { user, setUser, logOut, loading };
 
-  if (loading) return null; // ✅ user load হওয়ার আগে render বন্ধ
+  // if (loading) return null; // ✅ user load হওয়ার আগে render বন্ধ
 
   return (
     <AuthContext.Provider value={authData}>
