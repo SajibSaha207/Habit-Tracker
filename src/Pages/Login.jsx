@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import img1 from '../assets/login img1.png';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const googleProvider = new GoogleAuthProvider();
@@ -45,11 +46,20 @@ setError('');
 
  signInWithEmailAndPassword(auth, email, password)
  .then(result =>{
-  navigate(from, {replace: true});
+  console.log('login success');
+
+toast.success('Login successful!');
+                 setTimeout(() => {
+               navigate(from, {replace: true});
+               }, 1500);
+
   // console.log(result.user)
  })
  .catch(error => {
-  // console.log(error.message)
+  console.log(error.message)
+
+
+  
   setError(error.message)
  })
 
@@ -63,7 +73,14 @@ const handleTooglePasswordShow = (event)=>{
 
     return (
         <div>
+                <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
+
             <Navbar></Navbar>
+
+ 
         <div className='flex flex-col min-h-screen mt-15'>
 
   {/* CENTER AREA */}
@@ -98,13 +115,13 @@ const handleTooglePasswordShow = (event)=>{
                   type="email" 
                   name='email' 
                   ref={emailRef} 
-                  className="input" 
+                  className="input w-full" 
                   placeholder="Email" 
                 />
 
                 <label className="label">Password</label>
 
-                <div className='relative mr-22'>
+                <div className='relative input w-full'>
                   <input 
                     type={showPassword ? 'text' : 'password'} 
                     name='password' 

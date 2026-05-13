@@ -72,7 +72,7 @@ const Navbar = () => {
                 setDropdownOpen(!dropdownOpen);
               }}
               className='w-7 h-7 object-cover rounded-full cursor-pointer'
-              src={user?.imageUrl || usericon}
+              src={user?.photoURL || usericon}
               alt="user"
               title={user?.displayName || user?.email}
             />
@@ -85,12 +85,25 @@ const Navbar = () => {
               >
                 <div className='text-center mb-2'>
                   <img className='w-10 h-10 object-cover rounded-full mx-auto' src={user?.photoURL || usericon} alt="user" />
+                 
                   <p className='text-sm mt-1'>{user?.displayName || user?.email}</p>
-                  <hr className='my-2' />
+                  <p className='text-sm mt-1'>{user?.email  || user?.displayName}</p>
+
+                    {user && (
+            <Link
+              to="/auth/login"
+              onClick={handlelogOut}
+              className="mt-5 flex items-center justify-center w-full md:w-auto px-4 py-1.5 border-2 border-purple-500 text-purple-500 rounded-lg text-sm font-bold hover:bg-purple-500 hover:text-white transition-colors whitespace-nowrap"
+            >
+              Logout
+            </Link>
+          )}
+                 
+                   
                 </div>
-                <Link to="/profile" className="flex items-center gap-1 text-sm text-black hover:bg-amber-300 p-2 rounded-lg transition-all duration-300 hover:scale-105 mb-2 ml-3">
+                {/* <Link to="/profile" className="flex items-center gap-1 text-sm text-black hover:bg-amber-300 p-2 rounded-lg transition-all duration-300 hover:scale-105 mb-2 ml-3">
                   <CgProfile /> My Profile
-                </Link>
+                </Link> */}
               </div>
             )}
           </div>

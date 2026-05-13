@@ -130,17 +130,17 @@ const handleTooglePasswordShow = (event)=>{
               <fieldset className="fieldset">
 
                 <label className="label">Name</label>
-                <input type="text" name='name' className="input" placeholder="Name" />
+                <input type="text" name='name' className="input w-full" placeholder="Name" />
 
                 <label className="label">Image_URL</label>
-                <input type="text" name='image_url' className="input" placeholder="Image_URL" />
+                <input type="text" name='image_url' className="input w-full" placeholder="Image_URL" />
 
                 <label className="label">Email</label>
-                <input type="email" name='email' className="input" placeholder="Email" />
+                <input type="email" name='email' className="input w-full" placeholder="Email" />
 
                 <label className="label">Password</label>
 
-                <div className='relative mr-22'>
+                <div className='relative input w-full'>
                   <input 
                     type={showPassword ? 'text' : 'password'} 
                     name='password' 
@@ -161,7 +161,7 @@ const handleTooglePasswordShow = (event)=>{
   Login with Google
 </button>
 
-                <p className='font-semibold text-2xl'>
+                <p className='font-semibold text-xl'>
                   Already have an account? 
                   <span className='text-secondary font-bold'>
                     <Link to="/auth/login"> Login</Link>

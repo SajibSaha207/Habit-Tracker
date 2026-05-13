@@ -74,6 +74,27 @@ const MyHabit = () => {
         });
     }
 
+
+    const getStreak = (completionHistory) => {
+    if (!completionHistory?.length) return 0;
+    const sorted = [...completionHistory].sort((a, b) => new Date(b) - new Date(a));
+    let streak = 0;
+    let current = new Date();
+    current.setHours(0, 0, 0, 0);
+    for (let date of sorted) {
+        const d = new Date(date);
+        d.setHours(0, 0, 0, 0);
+        const diff = Math.floor((current - d) / (1000 * 60 * 60 * 24));
+        if (diff <= 1) {
+            streak++;
+            current = d;
+        } else break;
+    }
+    return streak;
+}
+
+
+
     const handleMarkComplete = (habit) => {
         const today = new Date().toISOString().slice(0, 10);
         const alreadyDone = habit?.completionHistory?.includes(today);
@@ -104,53 +125,59 @@ const MyHabit = () => {
     }
 
     return (
-        <div className='mt-25'>
+        <div className='pb-10 mt-25'>
             <h2 className='font-bold text-2xl'>My <span>Habits</span></h2>
 
             <div className="px-4 md:px-6 pb-10">
-                <div className="">
+                <div className="overflow-x-auto w-full">
                     <table className="table w-full min-w-[700px]">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th className='pl-13'>Title</th>
-                                <th>Category</th>
-                                <th>Current Streak</th>
-                                <th>Created Date</th>
-                                <th>Update</th>
-                                <th>Delete</th>
-                                <th>Mark Complete</th>
+                                <th className='text-center'>#</th>
+                                <th className='text-center'>Title</th>
+                                <th className='text-center'>Category</th>
+                                <th className='text-center'>Current Streak</th>
+                                <th className='text-center'>Created Date</th>
+                                <th className='text-center'>Update</th>
+                                <th className='text-center'>Delete</th>
+                                <th className='text-center'>Mark Complete</th>
                             </tr>
                         </thead>
                         <tbody>
                             {myhabit.map((m, index) => (
                                 <tr key={m._id}>
-                                    <th>{index + 1}</th>
-                                    <td>{m.title}</td>
-                                    <td>{m.category}</td>
-                                    <td className='pl-15'>0</td>
-                                    <td>{m.createdAt}</td>
+                                    <th className='text-center'>{index + 1}</th>
+                                    <td className='text-center'>{m.title}</td>
+                                    <td className='text-center'>{m.category}</td>
+                                    <td className='text-center'>{getStreak(m.completionHistory)} </td>
+                                    <td className='text-center'>{new Date(m.createdAt).toLocaleDateString()}</td>
                                     <td>
-                                        <button className='pl-4' onClick={() => handleEditClick(m)}>
+                                        <div className='flex justify-center'>
+                                        <button className='text-center' onClick={() => handleEditClick(m)}>
                                             <MdOutlineModeEditOutline size={20} className='text-blue-500 cursor-pointer' />
                                         </button>
+                                        </div>
                                     </td>
-                                    <td className='pl-8 cursor-pointer'>
+                                    <td>
+                                        <div  className='flex justify-center cursor-pointer'>
                                         <RiDeleteBin6Line
                                             size={20}
                                             onClick={() => handleDelete(m._id)}
                                             className='text-red-500'
                                         />
+                                        </div>
                                     </td>
-                                    <td className='pl-15 cursor-pointer'>
+                                    <td >
+                                        <div className='flex justify-center cursor-pointer'>
                                         {m?.completionHistory?.includes(new Date().toISOString().slice(0, 10))
-                                            ? <MdDone size={24} className='text-green-500' />
+                                            ? <MdDone size={24} className='text-green-500 ' />
                                             : <MdDone
                                                 size={24}
                                                 className='text-gray-300 hover:text-green-500 cursor-pointer'
                                                 onClick={() => handleMarkComplete(m)}
                                             />
                                         }
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -161,7 +188,7 @@ const MyHabit = () => {
 
             {/*  Lottie */}
             {showLottie && (
-                <div className="flex flex-col items-center justify-center py-4 -mt-20">
+                <div className="fixed inset-0 flex items-center justify-center z-40 pointer-events-none">
                     <DotLottieReact
                         src="https://lottie.host/e3093175-75b9-4075-840d-14d20f40e4e9/IYkxkW3OGF.lottie"
                         loop={false}

@@ -14,6 +14,7 @@ import PublicHabits from './Pages/PublicHabits'
 import PageNotFound from './Pages/PageNotFound'
 import Contact from './Pages/Contact'
 import TermsOfService from './Pages/TermsOfService'
+import { Toaster } from 'react-hot-toast'
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
+      
       <RouterProvider router={router} />
     </AuthProvider>
   </StrictMode>,

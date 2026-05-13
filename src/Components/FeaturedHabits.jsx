@@ -27,7 +27,7 @@ const FeaturedHabits = () => {
   }
 
     return (
-        <div className="my-10 px-4">
+        <div className="my-10 px-4  ">
 
             {/* Title Animation */}
             <motion.h2 
@@ -39,7 +39,7 @@ const FeaturedHabits = () => {
                 Featured Habits
             </motion.h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
 
                 {habits.map((habit, index) => (
                     

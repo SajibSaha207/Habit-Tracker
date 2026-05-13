@@ -21,16 +21,13 @@ const AuthLayout = () => {
 
 
     return (
-        <div>
-            <div className='max-w-7xl mx-auto flex flex-col min-h-screen'>
-                <Navbar />
-                <main className='flex-1'>
-                <Outlet />
-                </main>
-               
-            </div>
-            <Footer />
-        </div>
+       <div className='flex flex-col min-h-screen'>
+        <Navbar />
+        <main className='flex-1 max-w-7xl mx-auto w-full'>
+            <Outlet />
+        </main>
+        <Footer />
+    </div>
     );
 };
 
