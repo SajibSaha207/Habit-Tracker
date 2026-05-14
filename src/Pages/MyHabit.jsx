@@ -16,7 +16,7 @@ const MyHabit = () => {
 
     useEffect(() => {
         if (!user?.email) return;
-        fetch(`http://localhost:3000/habit_collection/${user.email}`)
+        fetch(`https://habit-tracker-server-xi.vercel.app/habit_collection/${user.email}`)
             .then(res => res.json())
             .then(data => setMyHabit(data))
     }, [user])
@@ -34,7 +34,7 @@ const MyHabit = () => {
         const reminderTime = e.target.reminderTime.value;
         const updateHabit = { title, description, category, reminderTime };
 
-        fetch(`http://localhost:3000/habits_collection/${selectedhabit._id}`, {
+        fetch(`https://habit-tracker-server-xi.vercel.app/habits_collection/${selectedhabit._id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateHabit)
@@ -62,7 +62,7 @@ const MyHabit = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:3000/habits_collection/${id}`, { method: 'DELETE' })
+                fetch(`https://habit-tracker-server-xi.vercel.app/habits_collection/${id}`, { method: 'DELETE' })
                 .then(res => res.json())
                 .then(data => {
                     if (data.deletedCount > 0) {
@@ -105,7 +105,7 @@ const MyHabit = () => {
             return;
         }
 
-        fetch(`http://localhost:3000/habits_collection/complete/${habit._id}`, {
+        fetch(`https://habit-tracker-server-xi.vercel.app/habits_collection/complete/${habit._id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ date: today })

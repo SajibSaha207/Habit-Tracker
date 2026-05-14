@@ -18,7 +18,7 @@ const AddHabit = () => {
         const formData = new FormData();
         formData.append('image', file);
 
-        const res = await fetch(``, {
+        const res = await fetch(`https://api.imgbb.com/1/upload?key=a5f7da03c32c26c36eae939f862ee17e`, {
             method: 'POST',
             body: formData
         });
@@ -43,10 +43,10 @@ const AddHabit = () => {
             image: image || '',
             creatorName: user?.displayName,
             creatorEmail: user?.email,
-            createAt: new Date().toISOString()
+            createdAt: new Date().toISOString()
         };
 
-        fetch('http://localhost:3000/habits_collection', {
+        fetch('https://habit-tracker-server-xi.vercel.app/habits_collection', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newHabit)
@@ -62,7 +62,7 @@ const AddHabit = () => {
                 });
                 e.target.reset();
                 setImage(null);
-                navigate('/');
+                window.location.href = '/';
             }
         });
         

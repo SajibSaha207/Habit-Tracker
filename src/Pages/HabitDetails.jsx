@@ -12,7 +12,7 @@ const HabitDetails = () => {
     const [showLottie, setShowLottie] = useState(false);
 
     const fetchDetails = () => {
-        fetch(`http://localhost:3000/habits_collection/detail/${id}`)
+       fetch(`https://habit-tracker-server-xi.vercel.app/habits_collection/${id}`)
             .then(res => res.json())
             .then(data => {
                 setHabitDetails(data);
@@ -80,7 +80,7 @@ const HabitDetails = () => {
             return;
         }
 
-        fetch(`http://localhost:3000/habits_collection/complete/${id}`, {
+        fetch(`https://habit-tracker-server-xi.vercel.app/habits_collection/complete/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ date: today })

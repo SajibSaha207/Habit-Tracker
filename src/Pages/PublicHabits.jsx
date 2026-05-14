@@ -11,7 +11,7 @@ const PublicdHabits = () => {
     const [selectedCategory, setSelectedCategory] = useState('All'); // ✅ filter
 
     useEffect(() => {
-        fetch('http://localhost:3000/habits_collection')
+        fetch('https://habit-tracker-server-xi.vercel.app/habits_collection')
             .then(res => res.json())
             .then(data => {
                 setPublicHabits(data);
