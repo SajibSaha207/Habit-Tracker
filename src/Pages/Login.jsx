@@ -55,13 +55,11 @@ toast.success('Login successful!');
 
   // console.log(result.user)
  })
- .catch(error => {
-  console.log(error.message)
-
-
-  
-  setError(error.message)
- })
+.catch(error => {
+    console.log(error.message)
+    toast.error('Login failed! Check your email and password.')  
+    setError(error.message)
+})
 
 }
 
@@ -121,11 +119,11 @@ const handleTooglePasswordShow = (event)=>{
 
                 <label className="label">Password</label>
 
-                <div className='relative input w-full'>
+                <div className='relative w-full'>
                   <input 
                     type={showPassword ? 'text' : 'password'} 
                     name='password' 
-                    className="input" 
+                    className="input w-full" 
                     placeholder="Password" 
                   />
                   <button 

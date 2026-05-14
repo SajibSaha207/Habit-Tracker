@@ -9,7 +9,7 @@ const FeaturedHabits = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3000/habits_collection')
+        fetch('http://localhost:3000/habits_collection?sort=latest')
             .then(res => res.json())
             .then(data => {
                 const recentHabits = data.slice(0, 6);
