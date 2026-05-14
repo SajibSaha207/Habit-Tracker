@@ -142,7 +142,7 @@ const AddHabit = () => {
                         className='w-full border border-dashed border-purple-400 rounded-lg px-4 py-6 focus:outline-none'
                     />
                     {uploading && <p className='text-sm text-purple-500 mt-1'>Uploading...</p>}
-                    {/* ✅ src={image} হবে, src={setImage} না */}
+                  
                     {image && <img src={image} className='mt-2 h-20 rounded-lg' alt="preview" />}
                 </div>
 

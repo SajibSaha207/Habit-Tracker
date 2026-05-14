@@ -6,7 +6,7 @@ const Progress = () => {
     return (
         <div className='mt-10 '>
 
-            {/* 🔥 Title Animation */}
+            {/* Title Animation */}
             <motion.h2 
                 initial={{ opacity: 0, y: -30 }}
                 whileInView={{ opacity: 1, y: 0 }}

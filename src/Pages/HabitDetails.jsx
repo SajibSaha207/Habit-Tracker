@@ -75,7 +75,7 @@ const HabitDetails = () => {
         const alreadyDone = habitdetails?.completionHistory?.includes(today);
 
         if (alreadyDone) {
-             setShowLottie(true); // ✅ already done হলেও দেখাবে
+             setShowLottie(true); 
             setTimeout(() => setShowLottie(false), 2500);
             return;
         }
@@ -88,8 +88,8 @@ const HabitDetails = () => {
         .then(res => res.json())
        .then(data => {
     if (data.modifiedCount > 0) {
-        setShowLottie(true); // ✅ Lottie দেখাও
-        setTimeout(() => setShowLottie(false), 2500); // ✅ 2.5 সেকেন্ড পরে বন্ধ
+        setShowLottie(true); 
+        setTimeout(() => setShowLottie(false), 2500); 
 
         setHabitDetails(prev => ({
             ...prev,

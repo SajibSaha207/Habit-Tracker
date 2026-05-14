@@ -5,7 +5,7 @@ const NotFound = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white">
             <img 
-                src={img3}  // ✅ তোমার image path দাও
+                src={img3}  
                 alt="404" 
                 className="w-80 mb-6"
             />

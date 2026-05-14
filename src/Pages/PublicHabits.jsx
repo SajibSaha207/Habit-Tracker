@@ -7,8 +7,8 @@ import Loading from '../Components/Loading';
 const PublicdHabits = () => {
     const [publichabits, setPublicHabits] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchQuery, setSearchQuery] = useState('');       // ✅ search
-    const [selectedCategory, setSelectedCategory] = useState('All'); // ✅ filter
+    const [searchQuery, setSearchQuery] = useState('');       
+    const [selectedCategory, setSelectedCategory] = useState('All'); 
 
     useEffect(() => {
         fetch('https://habit-tracker-server-xi.vercel.app/habits_collection')
@@ -19,7 +19,7 @@ const PublicdHabits = () => {
             })
     }, [])
 
-    // ✅ Search + Filter একসাথে
+    //  Search + Filter 
     const filteredHabits = publichabits.filter(habit => {
         const matchesSearch = habit.title?.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesCategory = selectedCategory === 'All' || habit.category === selectedCategory;
@@ -47,7 +47,7 @@ const PublicdHabits = () => {
                 Public Habits
             </motion.h2>
 
-            {/* ✅ Search + Filter */}
+            {/*  Search + Filter */}
             <div className="flex flex-col md:flex-row gap-4 mb-8 max-w-2xl mx-auto">
 
                 {/* Search Bar */}
@@ -76,7 +76,7 @@ const PublicdHabits = () => {
                 </select>
             </div>
 
-            {/* ✅ কোনো result না থাকলে */}
+            
             {filteredHabits.length === 0 && (
                 <p className="text-center text-gray-400 text-lg mt-10">No habits found!</p>
             )}

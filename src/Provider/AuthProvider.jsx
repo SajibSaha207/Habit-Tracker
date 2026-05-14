@@ -6,9 +6,9 @@ export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // ✅ loading state
+  const [loading, setLoading] = useState(true);  
 
-  // ✅ এটাই মূল সমস্যা ছিল — Firebase user track করছিল না
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
 
   const authData = { user, setUser, logOut, loading };
 
-  // if (loading) return null; // ✅ user load হওয়ার আগে render বন্ধ
+  // if (loading) return null;  
 
   return (
     <AuthContext.Provider value={authData}>

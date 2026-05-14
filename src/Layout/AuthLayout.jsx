@@ -7,9 +7,9 @@ import Loading from '../Components/Loading';
 
 const AuthLayout = () => {
 
-  const { loading } = useContext(AuthContext); // ✅ auth loading
+  const { loading } = useContext(AuthContext);  
 
-  // ✅ Firebase user check হওয়ার আগে spinner দেখাবে
+  //   spinner  
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
